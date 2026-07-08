@@ -37,6 +37,13 @@ Standard User Can Log In
     [Tags]    regression    positive
     Login Should Succeed    standard_user    secret_sauce
 
+Standard User Can Log Out
+    [Documentation]    After logging in, using the burger menu's Logout
+    ...                link must return the user to the login page.
+    [Tags]    regression    positive
+    Login Should Succeed    standard_user    secret_sauce
+    Logout Should Return To Login Page
+
 Problem User Can Still Log In
     [Documentation]    This account has known UI bugs elsewhere in the app,
     ...                but login itself must still work.

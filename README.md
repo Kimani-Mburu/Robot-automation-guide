@@ -161,11 +161,12 @@ re-run the activate command from step 2 of Setup, or call
 **Smoke suite** — 2 tests: standard user logs in successfully; locked-out
 user is blocked.
 
-**Regression suite** — 10 tests: standard/problem/performance-glitch users
-all log in successfully; locked-out user is blocked; wrong password and
-unknown username are rejected; empty username, empty password, and both
-empty are rejected with the correct validation message; and one data-driven
-test that reads every account from `data/test_users.csv`.
+**Regression suite** — 11 tests: standard/problem/performance-glitch users
+all log in successfully; standard user can log back out via the burger
+menu; locked-out user is blocked; wrong password and unknown username are
+rejected; empty username, empty password, and both empty are rejected with
+the correct validation message; and one data-driven test that reads every
+account from `data/test_users.csv`.
 
 ## Running in CI
 

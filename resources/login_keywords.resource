@@ -70,10 +70,20 @@ Login Should Fail With Message
 Logout
     [Documentation]
     ...    Logs the current user out via the burger menu. Only works if a
-    ...    user is currently logged in.
+    ...    user is currently logged in. Does NOT check the result — use
+    ...    "Logout Should Return To Login Page" instead unless you
+    ...    specifically need the raw action on its own.
     Click Element    ${BURGER_MENU_BUTTON}
     Wait Until Element Is Visible    ${LOGOUT_LINK}    timeout=5s
     Click Element    ${LOGOUT_LINK}
+
+Logout Should Return To Login Page
+    [Documentation]
+    ...    Logs out via the burger menu and verifies it actually worked by
+    ...    confirming the login form is visible again.
+    ...    Use this for verifying LOGOUT itself, not just performing it.
+    Logout
+    Wait Until Element Is Visible    ${USERNAME_FIELD}    timeout=10s
 
 Reset To Login Page
     [Documentation]
