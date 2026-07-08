@@ -1,0 +1,5 @@
+username,password,expected_result,notes
+standard_user,secret_sauce,success,Normal working account
+locked_out_user,secret_sauce,fail,Account has been locked out
+problem_user,secret_sauce,success,Logs in but has UI bugs (broken images etc.)
+performance_glitch_user,secret_sauce,success,Logs in but responds slowly

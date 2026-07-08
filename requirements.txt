@@ -1,0 +1,6 @@
+# Core framework
+robotframework
+
+# Adds browser automation keywords (Open Browser, Input Text, Click Button,
+# etc.) and, via Selenium 4.6+, automatic chromedriver management.
+robotframework-seleniumlibrary
