@@ -3,7 +3,7 @@ name: Robot Framework Tests
 
 on:
  push:
-  branches: [TestPat]
+  branches: [TestPat, develop]
  pull_request:
   branches: [TestPat]
  schedule:
