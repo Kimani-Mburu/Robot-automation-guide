@@ -25,7 +25,6 @@ ${USERNAME_FIELD}          id:user-name
 ${PASSWORD_FIELD}          id:password
 ${LOGIN_BUTTON}            id:login-button
 
-${TEST}                     id:test
 
 # Shown when login fails (wrong password, locked out account, etc.)
 ${ERROR_MESSAGE}           css:[data-test="error"]
