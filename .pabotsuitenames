@@ -1,0 +1,7 @@
+datasources:837364a6ddac5035660fdc25dea06e9c21661129
+commandlineoptions:97d170e1550eee4afc0af065b78cda302a97674c
+suitesfrom:no-suites-from-option
+file:ac4370fd9edc59e8b8c83dc9ca2db84070dbee1c
+--suite Tests.Checkout-Tests.Checkout
+--suite Tests.Regression.Login Regression
+--suite Tests.Smoke.Login Smoke
