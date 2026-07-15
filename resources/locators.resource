@@ -45,6 +45,8 @@ ${firstName}               id:first-name
 ${lastName}               id:last-name
 ${PostalCode}               id:postal-code
 
+${testdata}          test
+
 
 
 
