@@ -43,7 +43,7 @@ Login As
     ...    need the raw action on its own.
     [Arguments]    ${username}    ${password}
     Input Text          ${USERNAME_FIELD}    ${username}
-    Input Password      ${PASSWORD_FIELD}    ${password}
+    Input Password    ${PASSWORD_FIELD}    ${password}
     Click Button         ${LOGIN_BUTTON}
 
 Login Should Succeed
@@ -102,3 +102,10 @@ Reset To Login Page
     Execute Javascript    window.sessionStorage.clear();
     Go To    ${LOGIN_URL}
     Wait Until Element Is Visible    ${USERNAME_FIELD}    timeout=10s
+
+Add Item To Cart
+    # [Documentation] 
+    # ...    adding of an item to cart
+    Wait Until Element Is Visible    ${INVENTORY_TITLE}    timeout=10s
+    Wait Until Element Is Visible    ${ADD_TO_CART}    timeout=10s
+    Click Button    ${ADD_TO_CART}

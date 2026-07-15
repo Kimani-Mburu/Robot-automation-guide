@@ -35,3 +35,16 @@ ${INVENTORY_TITLE}         css:.title
 # --- Elements used for logging back out between tests ---
 ${BURGER_MENU_BUTTON}      id:react-burger-menu-btn
 ${LOGOUT_LINK}             id:logout_sidebar_link
+
+
+${ADD_TO_CART}             id:add-to-cart-sauce-labs-backpack
+${Cart}                    id:shopping_cart_container
+${Checkout}                id:checkout
+
+${firstName}               id:first-name
+${lastName}               id:last-name
+${PostalCode}               id:postal-code
+
+
+
+
