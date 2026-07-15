@@ -1,44 +1,34 @@
-name: Robot Framework Tests
+name: Run Login Tests   
+on:  
+ push:     
+  branches: [ JJ ]  
+ pull_request:   
+  branches: [ main ]   
+jobs:   
+ test:     
+  runs-on: ubuntu-latest    
+  steps:     
+    - name: Check out the code         
+      uses: actions/checkout@v4 
 
-on:
-  push:
-    branches: [JJ, develop]
-
-  pull_request:
-    branches: [JJ]
-
-  schedule:
-    - cron: '0 3 * * *'
-
-  workflow_dispatch:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Robot Framework tests
-        run: robot --outputdir results tests/
-        env:
-          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-
-      - name: Upload test report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: robot-results
-          path: results/
-          retention-days: 14
+    - name: Set up Python         
+      uses: actions/setup-python@v5       
+      with:           
+       python-version: '3.11'   
+    - name: Install dependencies 
+      run: pip install -r requirements.txt 
+    - name: Install Chrome    
+      uses: browser-actions/setup-chrome@v1        
+    - name: Run smoke tests         
+      run: robot --outputdir results/smoke tests/smoke/        
+    - name: Run regression tests         
+      if: always()         
+      run: robot --outputdir results/regression tests/regression/        
+    - name: Upload test report        
+      if: always()         
+      uses: actions/upload-artifact@v4         
+      with:           
+       name: robot-test-report           
+       path: results/ W
 
      
