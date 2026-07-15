@@ -41,15 +41,4 @@ jobs:
           path: results/
           retention-days: 14
 
-      - name: Notify by email on failure
-        if: failure()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "Robot Framework suite FAILED — ${{ github.ref_name }}"
-          to: jeskajenipher@gmail.com
-          from: CI Bot
-          body: "Run failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+     
