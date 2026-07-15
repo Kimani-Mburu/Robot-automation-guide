@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7cc06b44-b3f2-4ff6-949f-a585ce2e8d30" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.github/workflows/tests.yml" afterDir="false" />
-    </list>
+    <list default="true" id="7cc06b44-b3f2-4ff6-949f-a585ce2e8d30" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,6 +61,7 @@
       <workItem from="1783939984475" duration="2907000" />
       <workItem from="1784033772020" duration="2821000" />
       <workItem from="1784053618950" duration="6295000" />
+      <workItem from="1784131710174" duration="378000" />
     </task>
     <servers />
   </component>

@@ -3,9 +3,9 @@ name: Robot Framework Tests
 
 on:
  push:
-  branches: [main, develop]
+  branches: [TestPat]
  pull_request:
-  branches: [main]
+  branches: [TestPat]
  schedule:
     - cron: '0 3 * * *' # nightly at 3am UTC
  workflow_dispatch: # lets you trigger it manually from the Actions tab
