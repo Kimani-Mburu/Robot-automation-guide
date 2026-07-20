@@ -4,3 +4,7 @@ robotframework
 # Adds browser automation keywords (Open Browser, Input Text, Click Button,
 # etc.) and, via Selenium 4.6+, automatic chromedriver management.
 robotframework-seleniumlibrary
+
+# Adds HTTP keywords (GET/POST/PUT/DELETE On Session, JSON assertions) used
+# by the API tests in tests/api/ and tests/combined/.
+robotframework-requests

@@ -56,3 +56,43 @@ jobs:
           name: robot-results-regression
           path: results/
           retention-days: 14
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run pure API tests
+        run: robot --outputdir results/api tests/api/
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results-api
+          path: results/api
+          retention-days: 14
+
+  combined:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run combined UI + API tests
+        run: robot --outputdir results/combined --variable BROWSER:headlesschrome tests/combined/
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results-combined
+          path: results/combined
+          retention-days: 14

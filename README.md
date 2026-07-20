@@ -1,22 +1,33 @@
-# SauceDemo Login Automation
+# Robot Automation Guide
 
-Robot Framework automation for the login flow on [saucedemo.com](https://www.saucedemo.com/),
-built as a class practice project. Structure follows the "Robot Framework:
-Automating a Real Codebase" starter guide, Section 4.
+Robot Framework automation built as a class practice project, covering UI
+testing on [saucedemo.com](https://www.saucedemo.com/) (Classes 4–5) and API
+testing with RequestsLibrary (Class 6). Structure follows the "Robot
+Framework: Automating a Real Codebase" starter guide.
 
 ## Project Layout
 
 ```
-saucedemo_login_project/
+.
 ├── tests/
 │   ├── smoke/
-│   │   └── login_smoke.robot          # fast checks: 1 positive, 1 negative
-│   └── regression/
-│       └── login_regression.robot     # fuller set: positive, negative, edge, data-driven
+│   │   └── login_smoke.robot                # UI: fast checks, 1 positive + 1 negative
+│   ├── regression/
+│   │   ├── login_regression.robot            # UI: fuller login suite, edge cases, data-driven
+│   │   └── check_out.robot                    # UI: checkout flow regression
+│   ├── api/
+│   │   └── posts_api_tests.robot              # pure API suite against JSONPlaceholder
+│   └── combined/
+│       └── ui_api_combined_tests.robot         # create user via API, log in via UI
 ├── resources/
-│   ├── locators.resource              # every element locator, in one place
-│   ├── login_keywords.resource        # reusable keywords (Login As, Logout, etc.)
-│   └── CsvLibrary.py                  # small Python helper to read CSV test data
+│   ├── locators.resource                      # SauceDemo element locators
+│   ├── login_keywords.resource                # reusable SauceDemo login/logout keywords
+│   ├── check_out_keywords.resource             # reusable SauceDemo checkout keywords
+│   ├── CsvLibrary.py                           # small Python helper to read CSV test data
+│   ├── api_config.resource                     # JSONPlaceholder session config
+│   ├── api_keywords.resource                    # reusable JSONPlaceholder GET/POST/PUT/DELETE keywords
+│   ├── automation_exercise_api.resource         # real createAccount/deleteAccount API calls
+│   └── automation_exercise_locators.resource    # automationexercise.com login page locators
 ├── data/
 │   └── test_users.csv                 # SauceDemo's standard test accounts
 ├── results/                           # generated when you run tests — not committed
@@ -27,6 +38,15 @@ saucedemo_login_project/
 Every `.resource`, `.robot`, and `.py` file starts with a comment block
 explaining what it's for, and every keyword/test case has a
 `[Documentation]` line explaining what it does and why.
+
+## API Test Targets
+
+The API suites hit two different demo sites, on purpose:
+
+| Suite | Site | Why |
+|---|---|---|
+| `tests/api/` | [jsonplaceholder.typicode.com](https://jsonplaceholder.typicode.com) | Free, no signup, no API key. Good for raw GET/POST/PUT/DELETE and JSON assertions. Writes are simulated (not persisted), so there's no matching UI to log into. |
+| `tests/combined/` | [automationexercise.com](https://automationexercise.com) | A real storefront with both a UI and an API on the same backend — a user created through `createAccount` can genuinely log in through the browser afterwards. |
 
 ## Prerequisites
 
@@ -93,8 +113,8 @@ active.
 pip install -r requirements.txt
 ```
 
-That installs Robot Framework and SeleniumLibrary. You only need to redo
-this step if `requirements.txt` changes.
+That installs Robot Framework, SeleniumLibrary, and RequestsLibrary. You
+only need to redo this step if `requirements.txt` changes.
 
 > **Tip:** If you'd rather not activate the environment every time, you
 > can call the tools inside `.venv` directly, e.g. `.venv/bin/robot ...`
@@ -116,6 +136,17 @@ robot --outputdir results/smoke tests/smoke/
 Run just the regression suite:
 ```bash
 robot --outputdir results/regression tests/regression/
+```
+
+Run the pure API suite (no browser needed):
+```bash
+robot --outputdir results/api tests/api/
+```
+
+Run the combined UI + API suite (creates a real account via API, then logs
+in with it through the browser — needs Chrome/Chromium installed):
+```bash
+robot --outputdir results/combined tests/combined/
 ```
 
 Run only tests tagged "negative":
@@ -168,12 +199,23 @@ rejected; empty username, empty password, and both empty are rejected with
 the correct validation message; and one data-driven test that reads every
 account from `data/test_users.csv`.
 
+**API suite** — 6 tests against JSONPlaceholder's `/posts` endpoint:
+listing, fetching by id, creating, updating, deleting, and a deliberate
+negative test (`Get Post With Invalid Id Returns 404`).
+
+**Combined suite** — 1 test: registers a real account via the
+automationexercise.com API, logs in through the browser with those exact
+credentials, and confirms the header shows the same account name — proving
+the UI and API genuinely share a backend.
+
 ## Running in CI
 
-There's no CI workflow set up in this repo yet. If you add one (e.g. a
-GitHub Actions workflow at `.github/workflows/tests.yml`), remember to run
-the suites headless there — pass `--variable BROWSER:headlesschrome`, since
-CI runners don't have a display to show a real Chrome window.
+`.github/workflows/tests.yml` runs four jobs. `smoke`, `api`, and `combined`
+run on every push/PR to `main`/`develop`. `regression` only runs on the
+nightly schedule (`workflow_dispatch` also triggers it manually) — it's the
+slower, fuller suite, so it isn't run on every commit. All browser-based
+jobs pass `--variable BROWSER:headlesschrome`, since CI runners don't have
+a display to show a real Chrome window.
 
 ## A Note on Session State
 
